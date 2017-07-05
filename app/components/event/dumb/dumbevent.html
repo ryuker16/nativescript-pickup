@@ -1,0 +1,48 @@
+<Button text="<< BACK" (tap)="goBackPage()"></Button>
+<Label class="h2" textWrap="true" *ngFor=" let model of models" [text]="model.id"></Label>
+<!--
+<StackLayout *ngFor=" let model of models | async" orientation="vertical">
+   <ActionBar *ngIf=`model.group.who==='facebook' ` title="User Event"></ActionBar>
+    <ActionBar *ngIf=`model.group.who !=='facebook' ` title="MeetUp Event"></ActionBar>
+
+    <Button text="<< BACK" (tap)="goBackPage()"></Button>
+
+    <Label *ngIf="!deleted" class="h1" textWrap="true" [text]=' model.name '> </Label>
+    <Label *ngIf="deleted" class="h1" textWrap="true" text="Your Event was deleted"></Label>
+    <StackLayout orientation="horizontal" style="padding: 3">
+        <Label class="h2" textWrap="true" text="Venue: "></Label>
+    </StackLayout>
+    <Button text="<< BACK" (tap)="goBackPage()"></Button>
+
+
+    <StackLayout orientation="horizontal" style="padding: 2">
+        <Label class="h2" textWrap="true" text="Host: "></Label>
+        <Label class="h2" textWrap="true" [text]="model.group.name"></Label>
+    </StackLayout>
+    <Image width="80" horizontalAlign="left" height="80" [src]="model.group.group_photo.thumb_link"> </Image>
+    <StackLayout orientation="horizontal" style="padding: 2">
+        <Label class="h2" textWrap="true" text="Sport: "></Label>
+        <Label class="h2" textWrap="true" textTransform="capitalize" [text]="model.sport"></Label>
+    </StackLayout>
+    <StackLayout orientation="horizontal" style="padding: 2">
+        <Label class="h2" textWrap="true" text="Date Of Event: "></Label>
+        <Label class="h2" textWrap="true" [text]="model.time | date: short"></Label>
+    </StackLayout>
+    <StackLayout orientation="horizontal" style="padding: 2">
+        <Label class="h2" textWrap="true" text="Date Created: "></Label>
+        <Label class="body" textWrap="true" [text]="model.created | date: short"> </Label>
+    </StackLayout>
+    <StackLayout class="hr-light"></StackLayout>
+    <StackLayout orientation="horizontal" style="padding: 2">
+        <Label class="h3" textWrap="true" text="Going: "></Label>
+        <Label class="body" textWrap="true" [text]="model.yes_rsvp_count"> </Label>
+    </StackLayout>
+
+
+    <Label class="h2" textWrap="true" text="Attendees: "></Label>
+    <StackLayout orientation="horizontal">
+        <Image *ngFor='let b of model.rsvp_sample ' width="50" height="50" [src]="b.member_photo.thumb_link "> </Image>
+    </StackLayout>
+
+
+</StackLayout>-->

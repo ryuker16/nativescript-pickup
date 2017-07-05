@@ -1,0 +1,35 @@
+<ActionBar id="mapPage" title="Map Page">
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="left" android:horizontalAlignment="left">
+    </StackLayout>
+    <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="center">
+        <Label text="PickUp Sports" class="h1"></Label>
+    </StackLayout>
+</ActionBar>
+<StackLayout (loaded)="onSearchLayoutLoaded($event)">
+    <SearchBar row="0" #searchMyBar hint="search for sports/events" (loaded)="onSearchBarLoaded($event)" [text]="searchPhrase"
+        (clear)="onClear()"  (textChange)="searchSports($event)"></SearchBar>
+          <ListView row="1" [items]="returnedEvents" class="list-group">
+        <ng-template let-item="item">
+            <GridLayout class="item" class="list-group-item">
+            <Label [nsRouterLink]="['/event/', item.id]" [text]="item.name + '-' + (item.time | date:short)"
+                class="list-group-item" textWrap="true"></Label>
+        </GridLayout>
+        </ng-template>
+    </ListView>
+    <MapView #mapView (mapReady)="onMapReady($event)" (markerSelect)="onMarkerSelect($event)" latitude="36.160338" longitude="-86.778780"
+        zoom="9"></MapView>
+</StackLayout>
+<!--
+<StackLayout>
+    <ContentView height="100%" width="100%">
+        <Mapbox accessToken="pk.eyJ1Ijoicnl1a2VyMTYiLCJhIjoiY2l5dWxydHBnMDE2MDMybG02ODkzbHZ4NSJ9.izKvS2BW3JTlGxaBhtjf-g" mapStyle="light" latitude="36.160338" longitude="-86.778780" zoomLevel="12" showUserLocation="true" (mapReady)="onMapReady($event)">
+        </Mapbox>
+    </ContentView>
+    <ListView  row="1" [items]="returnedEvents" class="list-group" (itemTap)="onSelectEvent($event)" >
+        <template let-item="item">
+      <GridLayout class="item" class="list-group-item">
+          <Label [text]="item.name + ', Sport : ' + item.sport" class="list-group-item-heading"></Label>
+        </GridLayout>
+</template>
+    </ListView>
+</StackLayout>-->

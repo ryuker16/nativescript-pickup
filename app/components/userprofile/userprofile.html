@@ -1,0 +1,35 @@
+<GridLayout *ngIf="(userData | async)" rows="auto *" sdkExampleTitle sdkToggleNavButton>
+    <GridLayout row="0" rows="auto auto" backgroundColor="#adadad">
+        <Image row="0" width="100%" height="150" stretch="aspectFill" [src]="(userData | async).bigPicture "></Image>
+        <GridLayout row="0" rowSpan="2" rows="auto auto auto" columns="* auto" verticalAlignment="bottom" class="m-t-25">
+            <Image row="0" col="0" [src]="(userData | async).picture" height="40" width="40" class="m-l-15" horizontalAlignment="left" borderWidth="1" borderColor="white"></Image>
+            <Label row="1" col="0" [text]="(userData | async).displayName" class="text-left p-l-15" textWrap="true"></Label>
+            <Label row="2" col="0" [text]="test" class="text-left p-l-15" textWrap="true"></Label>
+            <Button row="0" col="1" text="Make New Event" (tap)="followTap()" class="btn btn-rounded-sm btn-active"></Button>
+        </GridLayout>
+    </GridLayout>
+    <TabView  row="1" #tabView class="tab-view">
+        <GridLayout *tabItem="{title: 'Future Attending'}">
+            <ListView row="1" [items]="markers | async" (itemTap)="goToEvent($event)" class="list-group">
+                <ng-template let-item="item">
+      <StackLayout  class="list-group-item">
+          <Label [text]="item.name" class="list-group-item-heading"></Label>
+          <Label [text]="item.events.time | date:short" class="list-group-item-text"></Label>
+          <Label [text]="item.sport" class="list-group-item-text"></Label>
+        </StackLayout>
+</ng-template>
+</ListView>
+        </GridLayout>
+        <GridLayout *tabItem="{title: 'My Created Events'}">
+            <ListView row="1" [items]="markers | async" (itemTap)="goToEvent($event)" class="list-group">
+                <ng-template let-item="item">
+<GridLayout class="item" class="list-group-item">
+    <Label [text]="item.name" class="list-group-item-heading"></Label>
+    <Label [text]="item.events.time | date:short " class="list-group-item-text"></Label>
+    <Label [text]="item.sport" class="list-group-item-text"></Label>
+  </GridLayout>
+</ng-template>
+</ListView>
+        </GridLayout>
+    </TabView>
+  </GridLayout>

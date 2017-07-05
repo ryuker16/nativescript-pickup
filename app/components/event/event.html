@@ -1,0 +1,49 @@
+<ActionBar *ngFor=" let model of modelall | async" android:title="Event">
+    <ActionItem [text]="model.name" ios.position="left"></ActionItem>
+    <ActionItem text="Item" ios.position="right" android.position="popup"></ActionItem>
+    <NavigationButton android.systemIcon="ic_menu_back" text="Back to Map" (tap)="goBackPage()"></NavigationButton>
+</ActionBar>
+<ScrollView orientation="vertical">
+    <StackLayout *ngFor=" let model of modelall | async" orientation="vertical">
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label *ngIf="!deleted" class="h1" textWrap="true" [text]="model.name"> </Label>
+            <Label *ngIf="deleted" class="h1" textWrap="true" text="Your Event was deleted"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Venue: "></Label>
+            <Label class="h2" textWrap="true" [text]="model.venue.address_1"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Host: "></Label>
+            <Label class="h2" textWrap="true" [text]="model.group.name"></Label>
+                 <Image width="80" *ngIf="model.group.group_photo !== undefined" horizontalAlign="left" height="80" [src]="model.group.group_photo.thumb_link">
+            </Image>
+        </StackLayout>
+            <StackLayout *ngIf="model.rsvp_sample.length > 0" orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Attendees: "></Label>
+            <Image *ngFor='let b of model.rsvp_sample' width="50" height="50" [src]="b.member_photo !== undefined ? b.member_photo.thumb_link : 'res://androidicon36x36.png'">
+            </Image>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" *ngIf="model.sport !== undefined" textWrap="true" text="Sport: "></Label>
+            <Label class="h2" *ngIf="model.sport !== undefined" textWrap="true" textTransform="capitalize" [text]="model.sport"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Date Of Event: "></Label>
+            <Label class="h2" textWrap="true" [text]="model.time | date: short"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Date Created: "></Label>
+            <Label class="h2" textWrap="true" [text]="model.created | date: short"> </Label>
+        </StackLayout>
+        <StackLayout class="hr-light"></StackLayout>
+        <StackLayout orientation="horizontal" style="padding: 1">
+            <Label class="h2" textWrap="true" text="Going: "></Label>
+            <Label class="h2" textWrap="true" [text]="model.yes_rsvp_count"> </Label>
+        </StackLayout>
+    
+                <StackLayout orientation="horizontal" style="padding: 1">
+        <HtmlView [html]="model.description"></HtmlView>
+                </StackLayout>
+    </StackLayout>
+</ScrollView>
