@@ -1,0 +1,65 @@
+<ActionBar android:title="Make Event">
+    <ActionItem android.systemIcon="ic_menu_back" (tap)="goBackPage()"></ActionItem>
+</ActionBar>
+
+<StackLayout>
+    <form [formGroup]="eventForm" (ngSubmit)="submitForm(eventForm.value)">
+        <StackLayout *ngIf="formSubmitted">
+            <h3> Your Event was created! </h3>
+        </StackLayout>
+        <StackLayout *ngIf="!formSubmitted">
+            <p> Please supply details to create event </p>
+            <StackLayout class="p-20">
+                <label for="Title">Title of your Event</label>
+                <TextField required hint="fill this out..." type="text" formControlName="title" name="Title" class="form-control" id="Title"></TextField>
+                <small id="TitleHelp" class="form-text text-muted">Include your sport</small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="description">Description</label>
+                <TextField type="text" formControlName="description" class="form-control" id="description"></TextField>
+                <small id="descriptionHelp" class="form-text text-muted"></small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="email">Email</label>
+                <TextField required hint="fill this out..." type="email" formControlName="email" class="form-control" id="email"></TextField>
+                <small id="emailhelp" class="form-text text-muted">Mandatory</small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="phone">Phone</label>
+                <TextField required hint="fill this out..." type="tel" formControlName="phone" class="form-control" id="phone"></TextField>
+                <small id="phoneHelp" class="form-text text-muted">Optional</small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="dateForm">Start time</label>
+                <TextField required hint="fill this out..." type="datetime-local" formControlName="startTime" class="form-control" id="dateForm"></TextField>
+                <small id="dateHelp" class="form-text text-muted"></small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="duration">Duration</label>
+                <TextField required hint="fill this out..." type="text" formControlName="duration" class="form-control" id="duration"></TextField>
+                <small id="durationHelp" class="form-text text-muted"></small>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="chooseSport">Choose a Sport</label>
+                <select class="form-control" formControlName="chooseSport" id="chooseSport">
+    <option *ngFor="let sport of sports;" [ngValue]="sport">{{sport}}</option>
+    </select>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="searchPlace">Location</label>
+                <TextField required hint="fill this out..." type="text" formControlName="searchPlace" placeholder="address" autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control" #searchPlace></TextField>
+            </StackLayout>
+            <StackLayout class="p-20">
+                <label for="locationHelp">How to find you at location</label>
+                <TextField required hint="fill this out..." type="text" formControlName="locationHelp" class="form-control" id="locationHelp"></TextField>
+                <small id="locationHelpInfo" class="form-text text-muted">Optional, additional location help</small>
+            </StackLayout>
+
+            <StackLayout class="modal-footer">
+                <Button type="submit" class="btn btn-orange" *ngIf="!formSubmitted">Make Event</Button>
+                <Button type="Button" class="btn btn-orange" (click)="activeModal.close('Close click')">Close</Button>
+            </StackLayout>
+        </StackLayout>
+
+    </form>
+</StackLayout>

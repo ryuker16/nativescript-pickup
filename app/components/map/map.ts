@@ -3,10 +3,8 @@ import {StackLayout} from "tns-core-modules/ui/layouts/stack-layout";
 import {GridLayout} from "tns-core-modules/ui/layouts/grid-layout";
 import { SearchBar } from "tns-core-modules/ui/search-bar";
 import {Image} from "tns-core-modules/ui/image";
-//import {ImageSource} from "image-source";
-//var imageSource = require("image-source");
+import * as tnsOAuthModule from 'nativescript-oauth';
 import { registerElement, ViewClass } from "nativescript-angular/element-registry";
-//import {mapsModule} from "nativescript-google-maps-sdk";
 import { MapView, Marker, Polyline, Position} from 'nativescript-google-maps-sdk';
 import {setupMarkerCluster} from 'nativescript-google-maps-utils';
 import {marker} from '../../components/interface/marker';
@@ -16,11 +14,8 @@ import { Observable }  from 'rxjs/Observable';
 import {ObservableArray} from "tns-core-modules/data/observable-array";
 import { MapService} from '../../actions/action';
 import { Router } from "@angular/router";
-//"data/observable-array"
 import { RouterExtensions, NativeScriptRouterModule } from "nativescript-angular/router";
 declare var org: any;
-// var mapbox = require("nativescript-mapbox");
-// registerElement("Mapbox", () => mapbox.Mapbox);
 registerElement("MapView", () => MapView);
 
 
@@ -111,6 +106,27 @@ export class MapComponent implements OnInit {
     public goBackPage() {
         this.routerExtensions.back();
     }
+    public goProfilePage() {
+   tnsOAuthModule.ensureValidToken()
+            .then((token: string) => {
+                this.mapService.loginUser(token)
+                .subscribe(
+                value =>  console.log("here's user data coming"),
+                error => console.log("Tried Logged into facebook but..:" + error),
+                () => console.log('successfully logged in')
+              );
+                
+                console.log('token: ' + token);
+                this.router.navigate(['/userprofile/']);
+            })
+            .then(() => {
+
+
+            })
+            .catch((er) => {
+                console.error('error testing ');
+                console.log(er);
+            });    }
 
 
     ngOnInit() {

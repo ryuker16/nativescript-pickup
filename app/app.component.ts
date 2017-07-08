@@ -43,7 +43,6 @@ export class AppComponent {
                 error => console.log("Tried Logged into facebook but..:" + error),
                 () => console.log('successfully logged in')
               );
-                
                 console.log('token: ' + token);
                 this.router.navigate(['/userprofile/']);
             })

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var store_1 = require("@ngrx/store");
+var loginReducer_1 = require("./loginReducer");
+var markerReducer_1 = require("./markerReducer");
+// Combine our map reducers
+exports.loginMapReducer = store_1.combineReducers({
+    markerReducer: markerReducer_1.markerReducer,
+    loginReducer: loginReducer_1.loginReducer
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibG9naW5NYXBSZWR1Y2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibG9naW5NYXBSZWR1Y2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEscUNBQThDO0FBQzlDLCtDQUE4QztBQUM5QyxpREFBZ0Q7QUFFaEQsMkJBQTJCO0FBQ2QsUUFBQSxlQUFlLEdBQUcsdUJBQWUsQ0FBQztJQUMzQyxhQUFhLCtCQUFBO0lBQ2IsWUFBWSw2QkFBQTtDQUNmLENBQUMsQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNvbWJpbmVSZWR1Y2VycyB9IGZyb20gJ0BuZ3J4L3N0b3JlJztcclxuaW1wb3J0IHsgbG9naW5SZWR1Y2VyIH0gZnJvbSAnLi9sb2dpblJlZHVjZXInO1xyXG5pbXBvcnQgeyBtYXJrZXJSZWR1Y2VyIH0gZnJvbSAnLi9tYXJrZXJSZWR1Y2VyJztcclxuXHJcbi8vIENvbWJpbmUgb3VyIG1hcCByZWR1Y2Vyc1xyXG5leHBvcnQgY29uc3QgbG9naW5NYXBSZWR1Y2VyID0gY29tYmluZVJlZHVjZXJzKHtcclxuICAgIG1hcmtlclJlZHVjZXIsXHJcbiAgICBsb2dpblJlZHVjZXJcclxufSlcclxuIl19

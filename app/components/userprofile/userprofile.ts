@@ -8,46 +8,45 @@ import { Observable } from 'rxjs/Observable';
 import { MapService } from '../../actions/action';
 import { Router } from "@angular/router";
 import { ObservableArray } from "tns-core-modules/data/observable-array";
-
+import { ListView } from "tns-core-modules/ui/list-view";
 import { RouterExtensions, NativeScriptRouterModule } from "nativescript-angular/router";
 
 @Component({
     moduleId: module.id,
     selector: "user-component",
-    styles: ['.odd { background-color: red;}',
-'.even {background-color: blue;}'
-],
     templateUrl: "./userprofile.html",
 })
 export class UserComponent implements OnInit {
     // user markers
-    markers: Observable<Array<marker.MapMarker>>;
+    //markers: Observable<Array<marker.MapMarker>>;
     // stored profile data.
     userData: Observable<user.UserProfile>;
     //Observable<Array<user.UserProfile>>;
-    //user.UserProfile;
     // user made markers to list in profile.
-    userMarkers: marker.MapMarker[];
+    userMarkers = new ObservableArray<marker.MapMarker>();
     // user attending event markers to list in profile.
-    userAttending: marker.MapMarker[];
+    userAttending = new ObservableArray<marker.MapMarker>();
     // user maybe attending markers to list in profile.
-    userMaybe: marker.MapMarker[];
+    userMaybe = new ObservableArray<marker.MapMarker>();
 
     constructor(private store: Store<any>, private router: Router, private mapService: MapService, public routerExtensions: RouterExtensions) {
-        this.markers = store.select('mapData');
-        //console.dir(this.markers);
-        this.userData = store.select('loginData');
-       //console.dir(this.userData);
 
-       
+        this.userData = store.select('loginData');
+        // this.markers = store.select('mapData');
     }
 
     ngOnInit() {
+        this.store.select('comboData').subscribe((data: any) => {
+            this.setMarkers(data.loginReducer.facebook, data.markerReducer);
+        })
+    }
 
-
+    public goBackPage() {
+        this.routerExtensions.back();
     }
 
     goToEvent(event) {
+        console.log(event.bindingContext.id);
         let urlExt = "/event/" + event.bindingContext.id;
         this.router.navigate([urlExt]);
     }
@@ -57,34 +56,28 @@ export class UserComponent implements OnInit {
      * @param {string} userId [user id string]
      */
 
-    setMarkers(userId: string): void {
+    setMarkers(userId: string, markers: Array<marker.MapMarker>): void {
         // return first user match value/object
         let findGoing = (element: marker.RsvpSample) => {
             return element.member.facebookId === userId;
         };
 
-        let newMaybeMarkers: marker.MapMarker[] = [];
-        let newAttendingMarkers: marker.MapMarker[] = [];
-        let newUserMarkers: marker.MapMarker[] = [];
-
-        for (let i in this.markers) {
-            if (this.markers[i].group.who === 'facebook') {
-                if (this.markers[i].group.facebookId === userId) {
-                    newUserMarkers.push(this.markers[i]);
-                } else {
-                    let attending: any = this.markers[i].rsvp_sample.find(findGoing);
-                    console.log(attending);
-                    if (attending !== undefined) {
-                        newAttendingMarkers.push(this.markers[i]);
+        for (let i in markers) {
+            if (markers[i] && markers[i].group) {
+                console.log(markers[i].group.who);
+                if (markers[i].group.who === 'facebook') {
+                    if (markers[i].group.facebookId === userId) {
+                        this.userAttending.push(markers[i]);
+                    } else {
+                        let attending: any = markers[i].rsvp_sample.find(findGoing);
+                        console.log(attending);
+                        if (attending !== undefined) {
+                            this.userMarkers.push(markers[i]);
+                        }
                     }
                 }
             }
         }
-        this.userMarkers = newUserMarkers;
-        this.userAttending = newAttendingMarkers;
-        this.userMaybe = newMaybeMarkers;
-
-        console.log('User Events: ' + this.userAttending);
     };
 
 
